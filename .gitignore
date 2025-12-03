@@ -1,0 +1,16 @@
+# Backend
+backend/venv/
+backend/__pycache__/
+backend/.env
+backend/chroma_db/
+backend/datasheets/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# System
+.DS_Store
+**/.DS_Store
