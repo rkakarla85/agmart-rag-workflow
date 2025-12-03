@@ -17,23 +17,28 @@ def get_vector_store():
     vector_store = Chroma(persist_directory=DB_DIR, embedding_function=embeddings)
     return vector_store
 
-def query_rag(question: str) -> str:
+def query_rag(question: str, filters: dict = None) -> str:
     """
-    Queries the RAG system with a question.
+    Queries the RAG system with a question and optional metadata filters.
     """
     try:
         vector_store = get_vector_store()
         llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
         
+        # Prepare search kwargs - increased k for better retrieval
+        search_kwargs = {"k": 20}
+        if filters:
+            search_kwargs["filter"] = filters
+        
         # Create a retriever
-        retriever = vector_store.as_retriever(search_kwargs={"k": 5})
+        retriever = vector_store.as_retriever(search_kwargs=search_kwargs)
         
         # Create the QA chain
         qa_chain = RetrievalQA.from_chain_type(
             llm=llm, 
             chain_type="stuff", 
             retriever=retriever,
-            return_source_documents=False
+            return_source_documents=True
         )
         
         result = qa_chain.invoke({"query": question})

@@ -14,7 +14,7 @@ const ChatInterface = () => {
         setLoading(true);
 
         try {
-            const response = await fetch(`http://localhost:8001/query?question=${encodeURIComponent(query)}`, {
+            const response = await fetch(`http://localhost:8000/query?question=${encodeURIComponent(query)}`, {
                 method: 'POST',
             });
 

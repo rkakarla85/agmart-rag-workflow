@@ -19,7 +19,7 @@ const FileUpload = () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch('http://localhost:8001/upload', {
+            const response = await fetch('http://localhost:8000/upload', {
                 method: 'POST',
                 body: formData,
             });
@@ -43,7 +43,7 @@ const FileUpload = () => {
             <div className="flex items-center gap-4">
                 <input
                     type="file"
-                    accept=".xlsx, .xls"
+                    accept=".xlsx, .xls, .csv"
                     onChange={handleFileChange}
                     className="block w-full text-sm text-slate-500
             file:mr-4 file:py-2 file:px-4
